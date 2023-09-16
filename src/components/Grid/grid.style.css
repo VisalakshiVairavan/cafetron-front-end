@@ -1,0 +1,46 @@
+
+.ag-cell--link {
+      text-decoration: underline;
+      color: brown;
+      cursor: pointer;
+ }
+
+
+ .ag-theme-material {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 1541px) {
+    .ag-theme-material {
+        width: 75%;
+      }
+  }
+
+  @media (min-width: 1025px) and (max-width: 1440px) {
+    /* Styles for large screens (larger desktops and widescreen monitors) */
+    .ag-theme-material {
+        width: 80%;
+      }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    /* Styles for medium screens (desktops and larger tablets) */
+    .ag-theme-material {
+        width: 70%;
+      }
+  }
+
+  @media (min-width: 415px) and (max-width: 768px) {
+    /* Styles for small screens (tablets) */
+    .ag-theme-material {
+        width: 90%;
+      }
+  }
+
+  @media (max-width: 414px) {
+    /* Styles for extra small screens */
+    .ag-theme-material {
+        width: 100%;
+      }
+  }
