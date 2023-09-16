@@ -1,6 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCafesAction, deleteCafeAction } from "../../store/cafes/slice";
+import {
+  getCafesAction,
+  deleteCafeAction,
+  editPendingCafe,
+} from "../../store/cafes/slice";
 import { StateType } from "../../store/root-reducers";
 import { CafeType } from "../../store/cafes/types";
 import "ag-grid-community/styles/ag-grid.css";
@@ -14,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { CellClickedEvent } from "ag-grid-community";
 
-function Cafe() {
+const Cafe = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const { data, isLoading } = useSelector(
     (state: StateType) => state.cafes.cafes
@@ -31,6 +35,7 @@ function Cafe() {
       field: "location",
       headerName: "Location",
       filter: "agTextColumnFilter",
+      cellClass: ["capitalize"],
     },
     {
       field: "employee_count",
@@ -41,10 +46,14 @@ function Cafe() {
       headerName: "Actions",
       cellRenderer: (params: any) => (
         <Box pr={2}>
-          <IconButton onClick={() => handleEditClick(params.data)}>
+          <IconButton
+            onClick={() => handleEditDeleteClick(params.data, "edit")}
+          >
             <EditIcon />
           </IconButton>
-          <IconButton onClick={() => handleDeleteClick(params.data)}>
+          <IconButton
+            onClick={() => handleEditDeleteClick(params.data, "delete")}
+          >
             <DeleteIcon />
           </IconButton>
         </Box>
@@ -53,41 +62,39 @@ function Cafe() {
     },
   ];
 
-  const handleEditClick = (cafe: CafeType) => {
-    console.log(cafe);
-    navigate("/employee", { state: { cafe: cafe } });
-  };
-
-  const handleDeleteClick = (cafe: CafeType) => {
-    deleteCafeId.current = cafe.cafeId;
-    setDeleteDialogOpen(true);
-  };
-
   const handleDeleteConfirm = () => {
-    console.log("deleteCafe", deleteCafeId);
     dispatch(deleteCafeAction(deleteCafeId.current));
     setDeleteDialogOpen(false);
   };
 
   const handleCellClicked = (event: CellClickedEvent) => {
-    console.log(event);
     if (event.colDef.field === "employee_count") {
-      navigate("/employee", { state: { cafeId: event.data.cafeId, cafe: event.data.name } });
+      navigate("/employee", {
+        state: { id: event.data.id, cafe: event.data.name },
+      });
     }
   };
 
-  const handleAddNew = ()=>{
-    
-  }
-  const onFilterChanged = (data:any) => {
-    console.log("onFilterChanged",data)
-    // const filterInstance = gridRef..api.getFilterInstance('location'); // Replace 'location' with your column field
-    // const filterText = filterInstance ? filterInstance.getFilter() : '';
-    // dispatch(getCafesAction());
+  const handleEditDeleteClick = (cafe: CafeType, action: "edit" | "delete") => {
+    if (action === "edit") {
+      dispatch(editPendingCafe(cafe));
+      navigate(`/cafe/${cafe.id}`);
+    } else if (action === "delete") {
+      deleteCafeId.current = cafe.id || "";
+      setDeleteDialogOpen(true);
+    }
+  };
+
+  const handleAddNew = () => {
+    navigate("/cafe/new");
+  };
+
+  const onFilterChanged = (data: any) => {
+    console.log("onFilterChanged", data);
   };
 
   useEffect(() => {
-    dispatch(getCafesAction(''));
+    dispatch(getCafesAction(""));
   }, []);
 
   return (
@@ -100,7 +107,7 @@ function Cafe() {
           direction="column"
           justifyContent="center"
           alignItems="center"
-          sx={{ paddingTop: 10, paddingRight: 20, paddingLeft: 20 }}
+          sx={{ paddingRight: 20, paddingLeft: 20 }}
         >
           <Grid container direction="row" alignItems="center">
             <Grid item container justifyContent="center">
@@ -109,7 +116,9 @@ function Cafe() {
               </Typography>
             </Grid>
             <Grid item container justifyContent="flex-end">
-              <Button variant="outlined" onClick={handleAddNew}>Add cafe</Button>
+              <Button variant="outlined" onClick={handleAddNew}>
+                Add cafe
+              </Button>
             </Grid>
           </Grid>
           <Grid item sx={{ height: "100%", width: "100%" }}>
@@ -131,6 +140,6 @@ function Cafe() {
       )}
     </div>
   );
-}
+};
 
 export default Cafe;

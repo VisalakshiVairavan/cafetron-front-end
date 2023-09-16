@@ -9,7 +9,13 @@ const employeeInitialState: EmployeeStateType = {
   },
   deletePending: null,
   editPending: null,
-  addPending: null,
+  addPending: {
+    name: "",
+    email_address: "",
+    phone_number: "",
+    gender: "Female",
+    cafe: "",
+  },
 };
 
 export const employeeSlice = createSlice({
@@ -40,8 +46,7 @@ export const employeeSlice = createSlice({
     deleteEmployeeAction: (
       state: EmployeeStateType,
       { payload: employeeId }: PayloadAction<string>
-    ) => {
-    },
+    ) => {},
     deletePendingEmployeeAction: (
       state: EmployeeStateType,
       { payload: employeeId }: PayloadAction<string>
@@ -57,6 +62,58 @@ export const employeeSlice = createSlice({
         state.employees.data?.filter((emp) => emp.id !== employeeId) || [];
       state.deletePending = null;
     },
+    addPendingEmployee: (
+      state: EmployeeStateType,
+      { payload: addPending }: PayloadAction<any>
+    ) => {
+      state.addPending = addPending;
+    },
+    addEmployeeAction: (
+      state: EmployeeStateType,
+      { payload: employee }: PayloadAction<EmployeeType | null>
+    ) => {},
+    addEmployeesSuccessAction: (
+      state: EmployeeStateType,
+      { payload: employee }: PayloadAction<EmployeeType>
+    ) => {
+      state.employees.data = [
+        ...(state.employees.data?.filter((c) => c.id !== employee.id) || []),
+        employee,
+      ];
+      state.addPending = null;
+    },
+    addEmployeesErrorAction: (
+      state: EmployeeStateType,
+      { payload: error }: PayloadAction<string>
+    ) => {
+      state.addPending = null;
+    },
+    editPendingEmployee: (
+      state: EmployeeStateType,
+      { payload: editPending }: PayloadAction<any>
+    ) => {
+      state.editPending = editPending;
+    },
+    editEmployeeAction: (
+      state: EmployeeStateType,
+      { payload: employee }: PayloadAction<EmployeeType | null>
+    ) => {},
+    editEmployeesSuccessAction: (
+      state: EmployeeStateType,
+      { payload: employee }: PayloadAction<EmployeeType>
+    ) => {
+      state.employees.data = [
+        ...(state.employees.data?.filter((c) => c.id !== employee.id) || []),
+        employee,
+      ];
+      state.editPending = null;
+    },
+    editEmployeesErrorAction: (
+      state: EmployeeStateType,
+      { payload: error }: PayloadAction<string>
+    ) => {
+      state.editPending = null;
+    },
   },
 });
 
@@ -66,6 +123,14 @@ export const {
   getEmployeesErrorAction,
   deleteEmployeeAction,
   deleteEmployeeSuccessAction,
-  deletePendingEmployeeAction
+  deletePendingEmployeeAction,
+  addPendingEmployee,
+  addEmployeeAction,
+  addEmployeesSuccessAction,
+  addEmployeesErrorAction,
+  editPendingEmployee,
+  editEmployeeAction,
+  editEmployeesSuccessAction,
+  editEmployeesErrorAction,
 } = employeeSlice.actions;
 export default employeeSlice.reducer;

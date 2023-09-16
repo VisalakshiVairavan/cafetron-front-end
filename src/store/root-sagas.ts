@@ -1,6 +1,16 @@
 import { all, fork } from "redux-saga/effects";
-import { watchGetCafes, watchDeleteCafes } from "./cafes/sagas";
-import { watchDeleteEmployees, watchGetEmployees } from "./employees/sagas";
+import {
+  watchGetCafes,
+  watchDeleteCafes,
+  watchAddCafe,
+  watchEditCafe,
+} from "./cafes/sagas";
+import {
+  watchAddEmployee,
+  watchDeleteEmployees,
+  watchEditEmployee,
+  watchGetEmployees,
+} from "./employees/sagas";
 
 const rootSaga = function* () {
   yield all([
@@ -8,6 +18,10 @@ const rootSaga = function* () {
     fork(watchDeleteCafes),
     fork(watchDeleteEmployees),
     fork(watchGetEmployees),
+    fork(watchAddCafe),
+    fork(watchEditCafe),
+    fork(watchEditEmployee),
+    fork(watchAddEmployee),
   ]);
 };
 

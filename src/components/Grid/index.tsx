@@ -45,14 +45,13 @@ function DataGrid(props: Props) {
     }
   };
 
-
   return (
     <div style={gridStyle} className="ag-theme-material">
       <AgGridReact
         ref={gridRef}
         columnDefs={props.columnDefs}
         rowData={props.data}
-        getRowId={(params) => params.data.cafeId || params.data.id }
+        getRowId={(params) => params.data.id || params.data.id}
         defaultColDef={defaultColDef}
         onGridReady={onGridReady}
         onCellClicked={props.handleCellClicked}

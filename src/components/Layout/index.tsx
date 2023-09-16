@@ -18,8 +18,7 @@ function Layout() {
           md={12}
           sx={{
             height: "350px",
-            backgroundImage:
-              "url(/cover.jpg)",
+            backgroundImage: "url(/cover.jpg)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "dark"
@@ -28,8 +27,7 @@ function Layout() {
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
-        >
-        </Grid>
+        ></Grid>
         <Grid
           item
           xs={12}
@@ -48,9 +46,6 @@ function Layout() {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h5">
-              Cafetron
-            </Typography>
             <Box
               sx={{
                 height: "calc(100vh - 250px)",

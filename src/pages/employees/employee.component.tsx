@@ -15,6 +15,7 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import {
   deleteEmployeeAction,
   deletePendingEmployeeAction,
+  editPendingEmployee,
   getEmployeesAction,
 } from "../../store/employees/slice";
 
@@ -56,8 +57,8 @@ function Employee() {
   ];
 
   const handleEditClick = (employee: EmployeeType) => {
-    console.log(employee);
-    navigate("/employee", { state: { employee: employee } });
+    dispatch(editPendingEmployee(employee));
+    navigate(`/employee/${employee.id}`);
   };
 
   const handleDeleteClick = (employee: EmployeeType) => {
@@ -66,20 +67,21 @@ function Employee() {
   };
 
   const handleDeleteConfirm = () => {
-    console.log("deleteEmployee", deletePending);
     dispatch(deleteEmployeeAction(deletePending?.id || ""));
     setDeleteDialogOpen(false);
   };
 
-  const handleAddNew = () => {};
+  const handleAddNew = () => {
+    navigate("/employee/new", { state: { id: location?.state?.id } });
+  };
 
   const onFilterChanged = (data: any) => {
     console.log(data);
   };
 
   useEffect(() => {
-    if (location?.state?.cafeId) {
-      dispatch(getEmployeesAction(location.state.cafeId));
+    if (location?.state?.id) {
+      dispatch(getEmployeesAction(location.state.id));
     } else {
       dispatch(getEmployeesAction(""));
     }
@@ -95,13 +97,12 @@ function Employee() {
           direction="column"
           justifyContent="center"
           alignItems="center"
-          sx={{ paddingTop: 10, paddingRight: 20, paddingLeft: 20 }}
+          sx={{ paddingRight: 20, paddingLeft: 20 }}
         >
           <Grid container direction="row" alignItems="center">
             <Grid item container justifyContent="center">
               <Typography component="h3" variant="h6">
-                Employee List{" "}
-                {location?.state?.cafeId ? location.state.cafe : ""}
+                Employee List {location?.state?.id ? location.state.cafe : ""}
               </Typography>
             </Grid>
             <Grid item container justifyContent="flex-end">

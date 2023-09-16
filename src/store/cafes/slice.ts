@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CAFES, CafeStateType, CafeType } from "./types";
-import { EmployeeType } from "../employees/types";
 
 const cafeInitialState: CafeStateType = {
   cafes: {
@@ -8,6 +7,14 @@ const cafeInitialState: CafeStateType = {
     isLoading: false,
     errors: "",
   },
+  deletePending: null,
+  addPending: {
+    name: "",
+    location: "",
+    description: "",
+    employee_count: 0,
+  },
+  editPending: null,
 };
 
 export const cafeSlice = createSlice({
@@ -37,36 +44,67 @@ export const cafeSlice = createSlice({
     },
     deleteCafeAction: (
       state: CafeStateType,
-      { payload: cafeId }: PayloadAction<string>
+      { payload: id }: PayloadAction<string>
     ) => {},
     deleteCafeSuccessAction: (
       state: CafeStateType,
-      { payload: cafeId }: PayloadAction<string>
+      { payload: id }: PayloadAction<string>
     ) => {
       state.cafes.data =
-        state.cafes.data?.filter((cafe) => cafe.cafeId !== cafeId) || [];
+        state.cafes.data?.filter((cafe) => cafe.id !== id) || [];
     },
-    // updateCafesEmpDeleteAction: (
-    //   state: CafeStateType,
-    //   { payload: empCafeId }: PayloadAction<string>
-    // ) => {
-    //   if (state.cafes.data?.length && empCafeId) {
-    //     console.log("updateCafesEmpDeleteAction", empCafeId);
-    //     const updatedCafe = state.cafes.data?.find(
-    //       (cafe) => cafe.cafeId === empCafeId
-    //     );
-    //     console.log("updatedCafe", updatedCafe);
-    //     if (updatedCafe) {
-    //       updatedCafe.employee_count = --updatedCafe.employee_count;
-    //       console.log("state.cafes.data", state.cafes.data);
-    //       state.cafes.data = [
-    //         ...state.cafes.data.filter((cafe) => cafe.cafeId !== empCafeId),
-    //         { ...updatedCafe, employee_count: --updatedCafe.employee_count },
-    //       ];
-    //       console.log("state.cafes.data", state.cafes.data);
-    //     }
-    //   }
-    // },
+    addPendingCafe: (
+      state: CafeStateType,
+      { payload: addPending }: PayloadAction<any>
+    ) => {
+      state.addPending = addPending;
+    },
+    addCafeAction: (
+      state: CafeStateType,
+      { payload: cafe }: PayloadAction<CafeType | null>
+    ) => {},
+    addCafesSuccessAction: (
+      state: CafeStateType,
+      { payload: cafe }: PayloadAction<CafeType>
+    ) => {
+      state.cafes.data = [
+        ...(state.cafes.data?.filter((c) => c.id !== cafe.id) || []),
+        cafe,
+      ];
+      state.addPending = null;
+    },
+    addCafesErrorAction: (
+      state: CafeStateType,
+      { payload: error }: PayloadAction<string>
+    ) => {
+      state.addPending = null;
+    },
+    editPendingCafe: (
+      state: CafeStateType,
+      { payload: editPending }: PayloadAction<any>
+    ) => {
+      state.editPending = editPending;
+    },
+    editCafeAction: (
+      state: CafeStateType,
+      { payload: cafe }: PayloadAction<CafeType | null>
+    ) => {},
+    editCafesSuccessAction: (
+      state: CafeStateType,
+      { payload: cafe }: PayloadAction<CafeType>
+    ) => {
+      state.cafes.data = [
+        ...(state.cafes.data?.filter((c) => c.id !== cafe.id) || []),
+        cafe,
+      ];
+      state.editPending = null;
+    },
+    editCafesErrorAction: (
+      state: CafeStateType,
+      { payload: error }: PayloadAction<string>
+    ) => {
+      state.editPending = null;
+    },
   },
 });
 
@@ -76,5 +114,13 @@ export const {
   getCafesErrorAction,
   deleteCafeAction,
   deleteCafeSuccessAction,
+  addPendingCafe,
+  addCafeAction,
+  addCafesSuccessAction,
+  addCafesErrorAction,
+  editPendingCafe,
+  editCafeAction,
+  editCafesSuccessAction,
+  editCafesErrorAction,
 } = cafeSlice.actions;
 export default cafeSlice.reducer;

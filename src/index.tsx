@@ -12,10 +12,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={coffeeTheme}>
-    <CssBaseline />
-    <App />
+      <CssBaseline />
+      <App />
     </ThemeProvider>
-   
   </React.StrictMode>
 );
 
