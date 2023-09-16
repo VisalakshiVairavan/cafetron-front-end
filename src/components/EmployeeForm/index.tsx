@@ -38,32 +38,32 @@ function EmployeeForm(props: Props) {
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
 
-    if (!props.employee?.name.trim()) {
+    if (!props.employee?.name?.trim()) {
       newErrors.name = "Name is required";
     }
 
-    const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
+    const emailPattern = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/i;
     const email = props.employee?.email_address.trim() || "";
     if (!email) {
       newErrors.email_address = "Email address is required";
     }
 
     const matchEmail: RegExpMatchArray | null = email.match(emailPattern);
-    if (!matchEmail || (matchEmail && matchEmail[0] != email)) {
+    if (!matchEmail || (matchEmail && matchEmail[0] !== email)) {
       newErrors.email_address = "Email is invalid";
     }
-    const phone = props.employee?.phone_number.trim() || "";
+    const phone = props.employee?.phone_number?.trim() || "";
     const phonePattern = /[8-9][0-9]{7}/i;
     if (!phone) {
       newErrors.phone_number = "Phone number is required";
     }
     const matchPhone: RegExpMatchArray | null = phone.match(phonePattern);
-    if (!matchPhone || (matchPhone && matchPhone[0] != phone)) {
+    if (!matchPhone || (matchPhone && matchPhone[0] !== phone)) {
       newErrors.phone_number =
         "Phone number is invalid . Enter valid SG number";
     }
 
-    const gender = props.employee?.gender.trim();
+    const gender = props.employee?.gender?.trim();
     if (!gender) {
       newErrors.gender = "Gender number is required";
     }
@@ -76,7 +76,7 @@ function EmployeeForm(props: Props) {
     e.preventDefault();
     if (validateForm()) {
       dispatch(props.updateEvent(props.employee));
-      navigate("/cafe");
+      navigate("/employee");
     }
   };
 

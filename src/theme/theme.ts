@@ -6,17 +6,17 @@ const coffeeTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#bf360c",
+      main: "#6c280e",
     },
     secondary: {
-      main: "#f50057",
+      main: "#616264",
     },
     background: {
       default: "#f3f1f1",
     },
     text: {
-      primary: "#c62828",
-      secondary: "#c62828",
+      primary: "#616264",
+      secondary: "#616264",
       disabled: "#f44336",
     },
   },

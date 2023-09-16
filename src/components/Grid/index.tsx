@@ -26,6 +26,7 @@ function DataGrid(props: Props) {
   const defaultColDef = useMemo(() => {
     return {
       resizable: true,
+      wrapHeaderText: true,
     };
   }, []);
 

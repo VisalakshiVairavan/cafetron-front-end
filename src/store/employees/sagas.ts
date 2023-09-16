@@ -1,12 +1,6 @@
 import { AxiosResponse } from "axios";
-import { put, takeLatest } from "redux-saga/effects";
-import {
-  EmployeeType,
-  DELETE_EMPLOYEE,
-  GET_ALL_EMPLOYEES,
-  ADD_EMPLOYEE,
-  EDIT_EMPLOYEE,
-} from "./types";
+import { put,  takeLatest } from "redux-saga/effects";
+import { EmployeeType, DELETE_EMPLOYEE, GET_ALL_EMPLOYEES, ADD_EMPLOYEE, EDIT_EMPLOYEE } from "./types";
 import {
   getEmployeesErrorAction,
   getEmployeesSuccessAction,
@@ -49,6 +43,7 @@ function* deleteEmployeesSaga({ payload: employeeId }: PayloadAction<string>) {
 export function* watchDeleteEmployees() {
   yield takeLatest(DELETE_EMPLOYEE, deleteEmployeesSaga);
 }
+
 
 function* addEmployeeSaga({ payload: employee }: PayloadAction<EmployeeType>) {
   try {

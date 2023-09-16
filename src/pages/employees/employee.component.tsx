@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { StateType } from "../../store/root-reducers";
@@ -31,15 +31,20 @@ function Employee() {
   const containerStyle = useMemo(() => ({ height: "100%" }), []);
 
   const columnDefs: any = [
-    { field: "name", headerName: "Name" },
-    { field: "email_address", headerName: "Email" },
+    { field: "name", headerName: "Name",  width: 250 },
+    {
+      field: "email_address",
+      headerName: "Email",
+      width: 350
+    },
     {
       field: "phone_number",
       headerName: "Phone number",
+      width: 250
     },
-    { field: "gender", headerName: "Gender" },
-    { field: "cafe_name", headerName: "Cafe" },
-    { field: "days_worked", headerName: "Days worked" },
+    { field: "gender", headerName: "Gender", width: 150 },
+    { field: "cafe_name", headerName: "Cafe", width: 350 },
+    { field: "days_worked", headerName: "Days worked", width: 150 },
     {
       headerName: "Actions",
       cellRenderer: (params: any) => (
@@ -97,12 +102,13 @@ function Employee() {
           direction="column"
           justifyContent="center"
           alignItems="center"
-          sx={{ paddingRight: 20, paddingLeft: 20 }}
+          sx={{ paddingRight: 10, paddingLeft: 10 }}
         >
           <Grid container direction="row" alignItems="center">
             <Grid item container justifyContent="center">
               <Typography component="h3" variant="h6">
-                Employee List {location?.state?.id ? location.state.cafe : ""}
+                Employee List{" "}
+                {location?.state?.id ? `of ${location.state.cafe}` : ""}
               </Typography>
             </Grid>
             <Grid item container justifyContent="flex-end">

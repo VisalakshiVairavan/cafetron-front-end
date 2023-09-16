@@ -29,18 +29,20 @@ const Cafe = () => {
   const containerStyle = useMemo(() => ({ height: "100%" }), []);
 
   const columnDefs: any = [
-    { field: "name", headerName: "Name" },
-    { field: "description", headerName: "Description" },
+    { field: "name", headerName: "Name", width: 250 },
+    { field: "description", headerName: "Description",width: 450 },
     {
       field: "location",
       headerName: "Location",
       filter: "agTextColumnFilter",
       cellClass: ["capitalize"],
+      width: 250
     },
     {
       field: "employee_count",
       headerName: "Employee count",
       cellClass: ["ag-cell--link"],
+      width: 150
     },
     {
       headerName: "Actions",
@@ -107,7 +109,7 @@ const Cafe = () => {
           direction="column"
           justifyContent="center"
           alignItems="center"
-          sx={{ paddingRight: 20, paddingLeft: 20 }}
+          sx={{ paddingRight: 10, paddingLeft: 10 }}
         >
           <Grid container direction="row" alignItems="center">
             <Grid item container justifyContent="center">

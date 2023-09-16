@@ -30,14 +30,14 @@ function CafeForm(props: Props) {
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
 
-    if (!props.cafe?.name.trim()) {
+    if (!props.cafe?.name?.trim()) {
       newErrors.name = "Name is required";
     }
-    if (!props.cafe?.description.trim()) {
+    if (!props.cafe?.description?.trim()) {
       newErrors.description = "Description is required";
     }
 
-    if (!props.cafe?.location.trim()) {
+    if (!props.cafe?.location?.trim()) {
       newErrors.location = "Location is required";
     }
 

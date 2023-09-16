@@ -29,14 +29,14 @@
 @media (min-width: 769px) and (max-width: 1024px) {
   /* Styles for medium screens (desktops and larger tablets) */
   .ag-theme-material {
-    width: 70%;
+    width: 100%;
   }
 }
 
 @media (min-width: 415px) and (max-width: 768px) {
   /* Styles for small screens (tablets) */
   .ag-theme-material {
-    width: 90%;
+    width: 100%;
   }
 }
 
