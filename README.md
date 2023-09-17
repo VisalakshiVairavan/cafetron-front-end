@@ -19,3 +19,11 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
+
+### Docker 
+
+Alternatively this app can be build and run using docker in local after .env.sample is copied over to .env file 
+
+```docker build -f Dockerfile -t client .```
+
+```docker run -it -p 3000:3000 client```
