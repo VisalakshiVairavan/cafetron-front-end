@@ -30,19 +30,19 @@ const Cafe = () => {
 
   const columnDefs: any = [
     { field: "name", headerName: "Name", width: 250 },
-    { field: "description", headerName: "Description",width: 450 },
+    { field: "description", headerName: "Description", width: 450 },
     {
       field: "location",
       headerName: "Location",
       filter: "agTextColumnFilter",
       cellClass: ["capitalize"],
-      width: 250
+      width: 250,
     },
     {
       field: "employee_count",
       headerName: "Employee count",
       cellClass: ["ag-cell--link"],
-      width: 150
+      width: 150,
     },
     {
       headerName: "Actions",
@@ -103,7 +103,7 @@ const Cafe = () => {
     <div style={containerStyle}>
       {isLoading ? (
         <LoadingSpinner />
-      ) : data ? (
+      ) : (
         <Grid
           container
           direction="column"
@@ -123,22 +123,24 @@ const Cafe = () => {
               </Button>
             </Grid>
           </Grid>
-          <Grid item sx={{ height: "100%", width: "100%" }}>
-            <DataGrid
-              deleteDialogOpen={deleteDialogOpen}
-              setDeleteDialogOpen={setDeleteDialogOpen}
-              data={data}
-              columnDefs={columnDefs}
-              handleDeleteConfirm={handleDeleteConfirm}
-              handleCellClicked={handleCellClicked}
-              onFilterChanged={onFilterChanged}
-            />
-          </Grid>
+          {data ? (
+            <Grid item sx={{ height: "100%", width: "100%" }}>
+              <DataGrid
+                deleteDialogOpen={deleteDialogOpen}
+                setDeleteDialogOpen={setDeleteDialogOpen}
+                data={data}
+                columnDefs={columnDefs}
+                handleDeleteConfirm={handleDeleteConfirm}
+                handleCellClicked={handleCellClicked}
+                onFilterChanged={onFilterChanged}
+              />
+            </Grid>
+          ) : (
+            <Typography component="h3" variant="h6">
+              No cafe found!
+            </Typography>
+          )}
         </Grid>
-      ) : (
-        <Typography component="h3" variant="h5">
-          No cafe found!
-        </Typography>
       )}
     </div>
   );

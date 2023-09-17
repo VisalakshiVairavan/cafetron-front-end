@@ -10,6 +10,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+Copy .env.sample into .env
+ 
 ### `npm install`
 ### `npm start`
 

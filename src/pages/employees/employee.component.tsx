@@ -18,7 +18,7 @@ import {
   editPendingEmployee,
   getEmployeesAction,
 } from "../../store/employees/slice";
-
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 function Employee() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const { data, isLoading } = useSelector(
@@ -31,16 +31,16 @@ function Employee() {
   const containerStyle = useMemo(() => ({ height: "100%" }), []);
 
   const columnDefs: any = [
-    { field: "name", headerName: "Name",  width: 250 },
+    { field: "name", headerName: "Name", width: 250 },
     {
       field: "email_address",
       headerName: "Email",
-      width: 350
+      width: 350,
     },
     {
       field: "phone_number",
       headerName: "Phone number",
-      width: 250
+      width: 250,
     },
     { field: "gender", headerName: "Gender", width: 150 },
     { field: "cafe_name", headerName: "Cafe", width: 350 },
@@ -80,6 +80,10 @@ function Employee() {
     navigate("/employee/new", { state: { id: location?.state?.id } });
   };
 
+  const handleGoBack = () => {
+    navigate("/cafe", { state: { id: location?.state?.id } });
+  };
+
   const onFilterChanged = (data: any) => {
     console.log(data);
   };
@@ -96,7 +100,7 @@ function Employee() {
     <div style={containerStyle}>
       {isLoading ? (
         <LoadingSpinner />
-      ) : data ? (
+      ) : (
         <Grid
           container
           direction="column"
@@ -105,7 +109,11 @@ function Employee() {
           sx={{ paddingRight: 10, paddingLeft: 10 }}
         >
           <Grid container direction="row" alignItems="center">
-            <Grid item container justifyContent="center">
+            <Grid item container justifyContent="center" alignItems="center">
+              <IconButton onClick={handleGoBack}>
+                <KeyboardArrowLeftIcon />
+              </IconButton>
+
               <Typography component="h3" variant="h6">
                 Employee List{" "}
                 {location?.state?.id ? `of ${location.state.cafe}` : ""}
@@ -117,19 +125,21 @@ function Employee() {
               </Button>
             </Grid>
           </Grid>
-          <Grid item sx={{ height: "100%", width: "100%" }}>
-            <DataGrid
-              deleteDialogOpen={deleteDialogOpen}
-              setDeleteDialogOpen={setDeleteDialogOpen}
-              data={data}
-              columnDefs={columnDefs}
-              handleDeleteConfirm={handleDeleteConfirm}
-              onFilterChanged={onFilterChanged}
-            />
-          </Grid>
+          {data ? (
+            <Grid item sx={{ height: "100%", width: "100%" }}>
+              <DataGrid
+                deleteDialogOpen={deleteDialogOpen}
+                setDeleteDialogOpen={setDeleteDialogOpen}
+                data={data}
+                columnDefs={columnDefs}
+                handleDeleteConfirm={handleDeleteConfirm}
+                onFilterChanged={onFilterChanged}
+              />
+            </Grid>
+          ) : (
+            <span>No employee found!</span>
+          )}
         </Grid>
-      ) : (
-        <span>No employee found!</span>
       )}
     </div>
   );
