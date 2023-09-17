@@ -109,9 +109,8 @@ const Cafe = () => {
           direction="column"
           justifyContent="center"
           alignItems="center"
-          sx={{ paddingRight: 10, paddingLeft: 10 }}
         >
-          <Grid container direction="row" alignItems="center">
+          <Grid item direction="row" container sx={{ paddingRight: 12, paddingLeft: 13 }}>
             <Grid item container justifyContent="center">
               <Typography component="h3" variant="h6">
                 Cafe List

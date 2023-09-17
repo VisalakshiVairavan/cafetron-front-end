@@ -106,9 +106,9 @@ function Employee() {
           direction="column"
           justifyContent="center"
           alignItems="center"
-          sx={{ paddingRight: 10, paddingLeft: 10 }}
+        
         >
-          <Grid container direction="row" alignItems="center">
+          <Grid item container direction="row"  sx={{ paddingRight: 10, paddingLeft: 10 }}>
             <Grid item container justifyContent="center" alignItems="center">
               <IconButton onClick={handleGoBack}>
                 <KeyboardArrowLeftIcon />

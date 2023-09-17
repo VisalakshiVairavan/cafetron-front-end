@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { CellClickedEvent, GridReadyEvent } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import React, { useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import "./grid.style.css";
 
 interface Props {
@@ -37,14 +37,18 @@ function DataGrid(props: Props) {
   const onGridReady = (params: GridReadyEvent<any>) => {
     const gridApi = params.api;
     gridApi.setDomLayout("autoHeight");
-    sizeColumnsToFit();
+    sizeColumnsFit();
   };
 
-  const sizeColumnsToFit = () => {
+  const sizeColumnsFit = () => {
     if (gridRef.current) {
-      gridRef.current.api.sizeColumnsToFit();
+      gridRef.current.api?.sizeColumnsToFit();
     }
   };
+
+  useEffect(() => {
+    sizeColumnsFit();
+  }, [props.data]);
 
   return (
     <div style={gridStyle} className="ag-theme-material">
@@ -60,7 +64,7 @@ function DataGrid(props: Props) {
         onFilterChanged={props.onFilterChanged}
       />
       <Dialog open={props.deleteDialogOpen} onClose={handleCloseDeleteDialog}>
-        <DialogTitle>Deletion!</DialogTitle>
+        <DialogTitle>Deletion</DialogTitle>
         <DialogContent>Are you sure you want to delete this?</DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDeleteDialog} color="primary">

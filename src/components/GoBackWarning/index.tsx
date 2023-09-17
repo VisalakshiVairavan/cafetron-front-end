@@ -19,10 +19,10 @@ function GoBackWarning(props: Props) {
       <DialogTitle>Your data is not saved</DialogTitle>
       <DialogContent>Are you sure you want to go back?</DialogContent>
       <DialogActions>
-        <Button onClick={props.handleCloseDialog} color="primary">
+        <Button onClick={props.handleCloseDialog} color="secondary">
           Yes
         </Button>
-        <Button onClick={props.handleConfirm} color="secondary">
+        <Button onClick={props.handleConfirm} color="primary">
           No
         </Button>
       </DialogActions>

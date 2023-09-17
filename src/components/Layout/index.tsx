@@ -10,7 +10,7 @@ function Layout() {
       <Grid container component="main" sx={{ height: "100vh" }}>
         <Grid
           item
-          xs={false}
+          xs={12}
           sm={12}
           md={12}
           sx={{
